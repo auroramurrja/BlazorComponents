@@ -1,0 +1,32 @@
+﻿@*typeparam lets our component be generic*@
+@typeparam TItem
+<p>
+    Show Checkboxes <input id="showCheckboxes" type="checkbox" checked="@showCheckboxes" @onchange="ShowCheckBoxesChanged" />
+</p>
+<ul style="list-style: none;">
+    @foreach (var item in Data)
+    {
+        <li>
+            <input type="checkbox" hidden="@hide" />
+            @RepeaterTemplate(item);
+        </li>
+    }
+</ul>
+@code{
+    [Parameter]
+    public RenderFragment<TItem> RepeaterTemplate { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<TItem> Data { get; set; }
+
+    public bool? showCheckboxes = true;
+    public bool hide = false;
+
+    public void ShowCheckBoxesChanged()
+    {
+        hide = !hide;
+        return;
+
+    }
+
+}
